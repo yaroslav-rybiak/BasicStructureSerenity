@@ -6,14 +6,10 @@ import net.serenitybdd.rest.SerenityRest;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import testbase.TestBase;
 
 @RunWith(SerenityRunner.class)
-public class FirstSerenityTest {
-
-    @BeforeClass
-    public static void initialization() {
-        RestAssured.baseURI = "http://localhost:8080/student";
-    }
+public class FirstSerenityTest extends TestBase {
 
     @Test
     public void tryFirstStudents() {
