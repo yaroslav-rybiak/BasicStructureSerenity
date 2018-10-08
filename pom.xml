@@ -1,19 +1,16 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://maven.apache.org/POM/4.0.0"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <groupId>TestingApp</groupId>
     <artifactId>TestingApp</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-
     <name>TestingApp Serenity BDD</name>
-
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <serenity.version>1.9.19</serenity.version> <!-- https://bintray.com/serenity/maven/serenity-core/ -->
+        <serenity.version>1.9.19</serenity.version>
         <serenity.maven.version>1.9.19</serenity.maven.version>
-        <serenity.cucumber.version>1.1.6</serenity.cucumber.version> <!-- https://bintray.com/serenity/maven/serenity-cucumber/ -->
+        <serenity.cucumber.version>1.1.6</serenity.cucumber.version>
     </properties>
-
     <repositories>
         <repository>
             <id>serenity</id>
@@ -28,7 +25,6 @@
             <url>http://dl.bintray.com/serenity/maven</url>
         </pluginRepository>
     </pluginRepositories>
-
     <dependencies>
         <dependency>
             <groupId>net.serenity-bdd</groupId>
