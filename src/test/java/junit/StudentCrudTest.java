@@ -5,7 +5,6 @@ import io.restassured.http.ContentType;
 import model.StudentClass;
 import net.serenitybdd.junit.runners.SerenityRunner;
 import net.serenitybdd.rest.SerenityRest;
-import net.thucydides.core.annotations.Pending;
 import net.thucydides.core.annotations.Title;
 import org.junit.FixMethodOrder;
 import org.junit.Test;
@@ -31,7 +30,7 @@ public class StudentCrudTest extends TestBase {
     private static String course01 = "Java";
     private static String course02 = "Selenium";
 
-    @Title("Add a new student")
+    @Title("Add a new student and verify that student was added")
     @Test
     public void test001() {
 
@@ -61,25 +60,20 @@ public class StudentCrudTest extends TestBase {
                 .response()
                 .getHeader("Location")
                 .replace(RestAssured.baseURI + "/", "");
-    }
 
-    @Title("Verify that student was added")
-    @Test
-    public void test002() {
-        String studentUrl = RestAssured.baseURI + "/" + studentId;
         SerenityRest.rest()
                 .given()
                 .when()
-                .get(studentUrl)
+                .get("/" + studentId)
                 .then()
                 .log()
                 .all()
                 .statusCode(200);
     }
 
-    @Title("Update student data")
+    @Title("Update student data and verify that student data was updated")
     @Test
-    public void test003() {
+    public void test002() {
         ArrayList<String> courses = new ArrayList<>();
         courses.add(course01);
         courses.add(course02);
@@ -101,16 +95,11 @@ public class StudentCrudTest extends TestBase {
                 .log()
                 .all()
                 .statusCode(200);
-    }
 
-    @Title("Verify that student data was updated")
-    @Test
-    public void test004() {
-        String studentUrl = RestAssured.baseURI + "/" + studentId;
         assertTrue(SerenityRest.rest()
                 .given()
                 .when()
-                .get(studentUrl)
+                .get("/" + studentId)
                 .then()
                 .log()
                 .all()
@@ -121,17 +110,25 @@ public class StudentCrudTest extends TestBase {
                 .equals(studentFirstNameUpdated));
     }
 
-    @Pending
-    @Title("Delete a student")
+    @Title("Delete a student and verify that student was deleted")
     @Test
-    public void test005() {
+    public void test003() {
+        SerenityRest.rest()
+                .given()
+                .when()
+                .delete("/" + studentId)
+                .then()
+                .log()
+                .all()
+                .statusCode(204);
 
-    }
-
-    @Pending
-    @Title("Verify that student was deleted")
-    @Test
-    public void test006() {
-
+        SerenityRest.rest()
+                .given()
+                .when()
+                .get("/" + studentId)
+                .then()
+                .log()
+                .all()
+                .statusCode(404);
     }
 }
