@@ -12,7 +12,9 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.MethodSorters;
 import testbase.TestBase;
+
 import java.util.ArrayList;
+
 import static utils.TestUtils.getRandomValue;
 
 @RunWith(SerenityRunner.class)
