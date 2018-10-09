@@ -10,8 +10,15 @@ public class StudentClass {
     private String programme;
     private ArrayList<String> courses;
 
-    //constructor
     public StudentClass() {
+    }
+
+    public StudentClass(String firstName, String lastName, String email, String programme, ArrayList<String> courses) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.email = email;
+        this.programme = programme;
+        this.courses = courses;
     }
 
     public String getFirstName() {
