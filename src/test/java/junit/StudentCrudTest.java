@@ -5,6 +5,8 @@ import model.StudentClass;
 import net.serenitybdd.junit.runners.SerenityRunner;
 import net.thucydides.core.annotations.Steps;
 import net.thucydides.core.annotations.Title;
+import org.ajbrown.namemachine.Name;
+import org.ajbrown.namemachine.NameGenerator;
 import org.junit.FixMethodOrder;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -13,20 +15,23 @@ import testbase.TestBase;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 import static org.junit.Assert.assertTrue;
-import static utils.TestUtils.getRandomValue;
 
 @RunWith(SerenityRunner.class)
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class StudentCrudTest extends TestBase {
 
+    private static NameGenerator generator = new NameGenerator();
+    private static List<Name> names = generator.generateNames( 1);
+
     private static String studentId;
     @Steps
-    SerenitySteps steps;
-    private String firstName = "Aaa" + getRandomValue();
+    private SerenitySteps steps;
+    private String firstName = names.get(0).getFirstName();
     private String firstNameUpdated = firstName + "_upd";
-    private String lastName = "Bbb" + getRandomValue();
+    private String lastName = names.get(0).getLastName();
     private String email = firstName.toLowerCase() + "@" + lastName.toLowerCase() + ".com";
     private String programme = "QA";
     private ArrayList<String> courses = new ArrayList<>(Arrays.asList("Java", "Selenium"));
