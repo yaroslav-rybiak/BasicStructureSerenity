@@ -11,7 +11,7 @@ import java.util.ArrayList;
 
 public class SerenitySteps {
 
-    @Step
+    @Step("Creating a new student {2}")
     public String createStudent(String firstName, String lastName, String email, String programme, ArrayList<String> courses) {
         Student student = new Student(firstName, lastName, email, programme, courses);
         return SerenityRest.rest()
@@ -32,7 +32,7 @@ public class SerenitySteps {
                 .replace(RestAssured.baseURI + "/", "");
     }
 
-    @Step
+    @Step("Checking that student with id {0} exists")
     public ValidatableResponse checkStudent(String studentId) {
         return SerenityRest.rest()
                 .given()
@@ -44,7 +44,7 @@ public class SerenitySteps {
                 .then();
     }
 
-    @Step
+    @Step("Updating student with id {1}")
     public ValidatableResponse updateStudent(Student student, String studentId) {
         return SerenityRest.rest()
                 .given()
@@ -57,7 +57,7 @@ public class SerenitySteps {
                 .then();
     }
 
-    @Step
+    @Step("Verifying that student with id {0} has a name '{1}'")
     public boolean verifyStudentName(String studentId, String name) {
         return SerenityRest.rest()
                 .given()
@@ -73,7 +73,7 @@ public class SerenitySteps {
                 .equals(name);
     }
 
-    @Step
+    @Step("Deleting a student with id {0}")
     public ValidatableResponse deleteStudent(String studentId) {
         return SerenityRest.rest()
                 .given()
