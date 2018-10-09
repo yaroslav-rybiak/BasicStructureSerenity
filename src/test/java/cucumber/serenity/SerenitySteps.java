@@ -3,7 +3,7 @@ package cucumber.serenity;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
 import io.restassured.response.ValidatableResponse;
-import model.StudentClass;
+import model.Student;
 import net.serenitybdd.rest.SerenityRest;
 import net.thucydides.core.annotations.Step;
 
@@ -13,7 +13,7 @@ public class SerenitySteps {
 
     @Step
     public String createStudent(String firstName, String lastName, String email, String programme, ArrayList<String> courses) {
-        StudentClass student = new StudentClass(firstName, lastName, email, programme, courses);
+        Student student = new Student(firstName, lastName, email, programme, courses);
         return SerenityRest.rest()
                 .given()
                 .contentType(ContentType.JSON)
@@ -45,7 +45,7 @@ public class SerenitySteps {
     }
 
     @Step
-    public ValidatableResponse updateStudent(StudentClass student, String studentId) {
+    public ValidatableResponse updateStudent(Student student, String studentId) {
         return SerenityRest.rest()
                 .given()
                 .contentType(ContentType.JSON)

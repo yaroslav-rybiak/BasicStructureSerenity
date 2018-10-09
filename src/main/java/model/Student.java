@@ -2,7 +2,7 @@ package model;
 
 import java.util.ArrayList;
 
-public class StudentClass {
+public class Student {
 
     private String firstName;
     private String lastName;
@@ -10,10 +10,7 @@ public class StudentClass {
     private String programme;
     private ArrayList<String> courses;
 
-    public StudentClass() {
-    }
-
-    public StudentClass(String firstName, String lastName, String email, String programme, ArrayList<String> courses) {
+    public Student(String firstName, String lastName, String email, String programme, ArrayList<String> courses) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;

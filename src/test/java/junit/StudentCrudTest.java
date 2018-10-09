@@ -1,7 +1,7 @@
 package junit;
 
 import cucumber.serenity.SerenitySteps;
-import model.StudentClass;
+import model.Student;
 import net.serenitybdd.junit.runners.SerenityRunner;
 import net.thucydides.core.annotations.Steps;
 import net.thucydides.core.annotations.Title;
@@ -47,7 +47,7 @@ public class StudentCrudTest extends TestBase {
     @Title("Update student data and verify that student data was updated")
     @Test
     public void test002() {
-        StudentClass student = new StudentClass(firstNameUpdated, lastName, email, programme, courses);
+        Student student = new Student(firstNameUpdated, lastName, email, programme, courses);
         steps.updateStudent(student, studentId).statusCode(200);
         assertTrue(steps.verifyStudentName(studentId, firstNameUpdated));
     }
