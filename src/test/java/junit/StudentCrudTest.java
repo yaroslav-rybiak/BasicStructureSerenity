@@ -2,12 +2,15 @@ package junit;
 
 import cucumber.serenity.SerenitySteps;
 import model.Student;
+import net.serenitybdd.junit.runners.SerenityParameterizedRunner;
 import net.serenitybdd.junit.runners.SerenityRunner;
 import net.thucydides.core.annotations.Steps;
 import net.thucydides.core.annotations.Title;
+import net.thucydides.junit.annotations.UseTestDataFrom;
 import org.ajbrown.namemachine.Name;
 import org.ajbrown.namemachine.NameGenerator;
 import org.junit.FixMethodOrder;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.MethodSorters;
@@ -19,38 +22,45 @@ import java.util.List;
 
 import static org.junit.Assert.assertTrue;
 
-@RunWith(SerenityRunner.class)
+//@RunWith(SerenityRunner.class)
+@RunWith(SerenityParameterizedRunner.class)
+@UseTestDataFrom("testdata/studentinfo.csv")
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class StudentCrudTest extends TestBase {
 
     private static NameGenerator generator = new NameGenerator();
-    private static List<Name> names = generator.generateNames( 10000);
+    private static List<Name> names = generator.generateNames( 100);
 
     private static String studentId;
     @Steps
     private SerenitySteps steps;
-    private String firstName = names.get(0).getFirstName();
-    private String firstNameUpdated = names.get(1).getFirstName();
-    private String lastName = names.get(0).getLastName();
-    private String lastNameUpdated = names.get(1).getLastName();
-    private String email = firstName.toLowerCase() +"." + lastName.toLowerCase() + "@" + "nonexisting.mail";
-    private String programme = "QA";
-    private ArrayList<String> courses = new ArrayList<>(Arrays.asList("Java", "Selenium"));
+    //    private String firstName = names.get(0).getFirstName();
+//    private String firstNameUpdated = names.get(1).getFirstName();
+//    private String lastName = names.get(0).getLastName();
+//    private String lastNameUpdated = names.get(1).getLastName();
+//    private String email = firstName.toLowerCase() +"." + lastName.toLowerCase() + "@" + "nonexisting.mail";
+//    private String programme = "QA";
+//    private ArrayList<String> courses = new ArrayList<>(Arrays.asList("Java", "Selenium"));
+    private String firstName;// = names.get(0).getFirstName();
+    private String lastName;// = names.get(0).getLastName();
+    private String email;// = firstName.toLowerCase() +"." + lastName.toLowerCase() + "@" + "nonexisting.mail";
+    private String programme;// = "QA";
+    private String course01;// = new ArrayList<>(Arrays.asList("Java", "Selenium"));
+    private String course02;// = new ArrayList<>(Arrays.asList("Java", "Selenium"));
 
-    @Title("Create 100 students")
+    @Title("Create multiple data driven students")
     @Test
     public void test000() {
-        for (int i = 0; i < 10000; i++) {
-            String firstName = names.get(i).getFirstName();
-            String lastName = names.get(i).getLastName();
-            String email = firstName.toLowerCase() +"." + lastName.toLowerCase() + "@" + "nonexisting.mail";
-            studentId = steps.createStudent(firstName, lastName, email, programme, courses);
-            steps.checkStudentExists(studentId).statusCode(200);
-            System.out.println("Student " + studentId + " was created");
+        ArrayList<String> courses = new ArrayList<String>();
+        courses.add(course01);
+        if(!course02.equals("")) {
+            courses.add(course02);
         }
-
+        studentId = steps.createStudent(firstName, lastName, email, programme, courses);
+        steps.checkStudentExists(studentId).statusCode(200);
     }
 //
+//    @Ignore
 //    @Title("Add a new student and verify that student was created")
 //    @Test
 //    public void test001() {
@@ -59,6 +69,7 @@ public class StudentCrudTest extends TestBase {
 //
 //    }
 //
+//    @Ignore
 //    @Title("Correct student data and verify that student data was updated")
 //    @Test
 //    public void test002() {
@@ -67,6 +78,7 @@ public class StudentCrudTest extends TestBase {
 //        assertTrue(steps.verifyStudentName(studentId, firstNameUpdated));
 //    }
 //
+//    @Ignore
 //    @Title("Delete a student and verify that student no longer exists")
 //    @Test
 //    public void test003() {
