@@ -1,11 +1,11 @@
 package cucumber.serenity;
 
 import io.restassured.RestAssured;
-import io.restassured.http.ContentType;
 import io.restassured.response.ValidatableResponse;
 import model.Student;
 import net.serenitybdd.rest.SerenityRest;
 import net.thucydides.core.annotations.Step;
+import utils.ReusableSepcifications;
 
 import java.util.ArrayList;
 
@@ -16,16 +16,13 @@ public class SerenitySteps {
         Student student = new Student(firstName, lastName, email, programme, courses);
         return SerenityRest.rest()
                 .given()
-                .contentType(ContentType.JSON)
-                .log()
-                .all()
+                .spec(ReusableSepcifications.getGenericRequestSpecification())
                 .when()
                 .body(student)
                 .post()
                 .then()
-                .log()
-                .all()
                 .statusCode(201)
+                .spec(ReusableSepcifications.getGenericResponseSpecification())
                 .extract()
                 .response()
                 .getHeader("Location")
@@ -33,28 +30,39 @@ public class SerenitySteps {
     }
 
     @Step("Checking that student with id {0} exists")
-    public ValidatableResponse checkStudent(String studentId) {
+    public ValidatableResponse checkStudentExists(String studentId) {
         return SerenityRest.rest()
                 .given()
-                .contentType(ContentType.JSON)
-                .log()
-                .all()
                 .when()
                 .get("/" + studentId)
-                .then();
+                .then()
+                .statusCode(200)
+                .spec(ReusableSepcifications.getGenericResponseSpecification());
+    }
+
+    @Step("Checking that student with id {0} does not exist")
+    public ValidatableResponse checkStudentDoesNotExist(String studentId) {
+        return SerenityRest.rest()
+                .given()
+                .when()
+                .get("/" + studentId)
+                .then()
+                .statusCode(404);
     }
 
     @Step("Updating student with id {1}")
     public ValidatableResponse updateStudent(Student student, String studentId) {
         return SerenityRest.rest()
                 .given()
-                .contentType(ContentType.JSON)
+                .spec(ReusableSepcifications.getGenericRequestSpecification())
                 .log()
                 .all()
                 .when()
                 .body(student)
                 .put("/" + studentId)
-                .then();
+                .then()
+                .statusCode(200)
+                .spec(ReusableSepcifications.getGenericResponseSpecification());
     }
 
     @Step("Verifying that student with id {0} has a name '{1}'")
@@ -64,8 +72,6 @@ public class SerenitySteps {
                 .when()
                 .get("/" + studentId)
                 .then()
-                .log()
-                .all()
                 .extract()
                 .body()
                 .path("firstName")
@@ -79,6 +85,7 @@ public class SerenitySteps {
                 .given()
                 .when()
                 .delete("/" + studentId)
-                .then();
+                .then()
+                .statusCode(204);
     }
 }

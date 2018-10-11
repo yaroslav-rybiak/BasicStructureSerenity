@@ -24,38 +24,53 @@ import static org.junit.Assert.assertTrue;
 public class StudentCrudTest extends TestBase {
 
     private static NameGenerator generator = new NameGenerator();
-    private static List<Name> names = generator.generateNames( 1);
+    private static List<Name> names = generator.generateNames( 10000);
 
     private static String studentId;
     @Steps
     private SerenitySteps steps;
     private String firstName = names.get(0).getFirstName();
-    private String firstNameUpdated = firstName + "_upd";
+    private String firstNameUpdated = names.get(1).getFirstName();
     private String lastName = names.get(0).getLastName();
-    private String email = firstName.toLowerCase() + "@" + lastName.toLowerCase() + ".com";
+    private String lastNameUpdated = names.get(1).getLastName();
+    private String email = firstName.toLowerCase() +"." + lastName.toLowerCase() + "@" + "nonexisting.mail";
     private String programme = "QA";
     private ArrayList<String> courses = new ArrayList<>(Arrays.asList("Java", "Selenium"));
 
-    @Title("Add a new student and verify that student was added")
+    @Title("Create 100 students")
     @Test
-    public void test001() {
-        studentId = steps.createStudent(firstName, lastName, email, programme, courses);
-        steps.checkStudent(studentId).statusCode(200);
+    public void test000() {
+        for (int i = 0; i < 10000; i++) {
+            String firstName = names.get(i).getFirstName();
+            String lastName = names.get(i).getLastName();
+            String email = firstName.toLowerCase() +"." + lastName.toLowerCase() + "@" + "nonexisting.mail";
+            studentId = steps.createStudent(firstName, lastName, email, programme, courses);
+            steps.checkStudentExists(studentId).statusCode(200);
+            System.out.println("Student " + studentId + " was created");
+        }
 
     }
-
-    @Title("Update student data and verify that student data was updated")
-    @Test
-    public void test002() {
-        Student student = new Student(firstNameUpdated, lastName, email, programme, courses);
-        steps.updateStudent(student, studentId).statusCode(200);
-        assertTrue(steps.verifyStudentName(studentId, firstNameUpdated));
-    }
-
-    @Title("Delete a student and verify that student was deleted")
-    @Test
-    public void test003() {
-        steps.deleteStudent(studentId).statusCode(204);
-        steps.checkStudent(studentId).statusCode(404);
-    }
+//
+//    @Title("Add a new student and verify that student was created")
+//    @Test
+//    public void test001() {
+//        studentId = steps.createStudent(firstName, lastName, email, programme, courses);
+//        steps.checkStudentExists(studentId).statusCode(200);
+//
+//    }
+//
+//    @Title("Correct student data and verify that student data was updated")
+//    @Test
+//    public void test002() {
+//        Student student = new Student(firstNameUpdated, lastNameUpdated, email, programme, courses);
+//        steps.updateStudent(student, studentId).statusCode(200);
+//        assertTrue(steps.verifyStudentName(studentId, firstNameUpdated));
+//    }
+//
+//    @Title("Delete a student and verify that student no longer exists")
+//    @Test
+//    public void test003() {
+//        steps.deleteStudent(studentId).statusCode(204);
+//        steps.checkStudentDoesNotExist(studentId).statusCode(404);
+//    }
 }
