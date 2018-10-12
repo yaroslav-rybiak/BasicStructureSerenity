@@ -100,7 +100,7 @@
                 <configuration>
                     <includes>
                         <include>
-                            **/*Test.java
+                            **/*DataTest.java
                         </include>
                     </includes>
                     <forkCount>4</forkCount>
