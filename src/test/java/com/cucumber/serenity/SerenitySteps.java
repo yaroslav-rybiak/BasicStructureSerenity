@@ -1,4 +1,4 @@
-package cucumber.serenity;
+package com.cucumber.serenity;
 
 import io.restassured.RestAssured;
 import io.restassured.response.ValidatableResponse;
@@ -12,7 +12,10 @@ import java.util.ArrayList;
 public class SerenitySteps {
 
     @Step("Creating a new student {2}")
-    public String createStudent(String firstName, String lastName, String email, String programme, ArrayList<String> courses) {
+    public String createStudent(String firstName, String lastName, String email, String programme, String course01, String course02) {
+        ArrayList<String> courses = new ArrayList<>();
+        courses.add(course01);
+        courses.add(course02);
         Student student = new Student(firstName, lastName, email, programme, courses);
         return SerenityRest.rest()
                 .given()
