@@ -7,10 +7,10 @@
     <name>TestingApp Serenity BDD</name>
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <serenity.restassured.version>2.0.7</serenity.restassured.version>
-        <serenity.cucumber.version>1.9.18</serenity.cucumber.version>
-        <serenity.maven.version>2.0.7</serenity.maven.version>
-        <serenity.version>2.0.7</serenity.version>
+        <serenity.restassured.version>2.0.41</serenity.restassured.version>
+        <serenity.cucumber.version>1.9.31</serenity.cucumber.version>
+        <serenity.maven.version>2.0.41</serenity.maven.version>
+        <serenity.version>2.0.41</serenity.version>
     </properties>
     <dependencies>
         <dependency>
@@ -26,7 +26,7 @@
         <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-simple</artifactId>
-            <version>1.7.25</version>
+            <version>1.7.26</version>
         </dependency>
         <dependency>
             <groupId>org.apache.maven.plugins</groupId>
