@@ -1,16 +1,13 @@
 package com.cucumber.steps;
 
 import cucumber.api.java.en.Then;
-import net.serenitybdd.rest.SerenityRest;
+import io.restassured.RestAssured;
 
-public class InpostSteps {
-
-    private String URL = "https://inpost.pl/sledzenie-przesylek";
+public class ParcelSteps {
 
     @Then("^Parcel ([^\"]*) exists$")
     public void parcelExists(String parcelId) {
-        SerenityRest.given().log().all()
-                .param("number", parcelId)
-                .get(URL);
+        RestAssured.baseURI = "https://api-shipx-pl.easypack24.net/v1/tracking/";
+        RestAssured.get(parcelId);
     }
 }
